@@ -8,6 +8,8 @@ Site estático da landing page do lançamento do Código da Audiência (Nahuel M
 - Build command: *(vazio)*
 - Build output directory: `/`
 
+Também funciona como Worker com assets estáticos (`wrangler.jsonc`, deploy command `npx wrangler deploy`, sem build command); `.assetsignore` impede que README e configs sejam servidos.
+
 O arquivo `_headers` define o cache. Teste local: `npx serve .` ou qualquer servidor estático.
 
 ## Otimizações em relação ao site original
