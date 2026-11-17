@@ -20,11 +20,17 @@ const faq = [
   ["Por quanto tempo terei acesso ao curso gravado?", "Você terá acesso completo a todas as aulas gravadas, atualizações e materiais complementares por <strong>1 ano (12 meses)</strong>. Isso permite que você assista no seu próprio ritmo e reveja o conteúdo quantas vezes quiser."],
   ["E se eu comprar e perceber que o método não é para mim?", "Você tem uma <strong>garantia incondicional de 7 dias</strong>. Se por qualquer motivo você assistir às aulas e achar que o método não serve para o seu momento, basta pedir o reembolso ao nosso suporte dentro desse prazo e nós devolvemos 100% do seu dinheiro, sem burocracia."],
 ];
-const cartao = ([arq, quem, seg, views, w, h], grupo, extra = "") =>
-  `<a class="${grupo === "medina" ? "prova" : "cartao"}" ${extra} data-visor="${grupo}" href="/assets/provas/${arq}.webp?v=__V__" aria-label="Ampliar resultado ${quem === "Medina" ? "do Medina" : "de aluno"}: ${seg} seguidores em um único reel, com ${views} visualizações">` +
-  (grupo === "medina"
-    ? `<span class="prova__num">${seg}</span><span class="prova__txt">seguidores em um único reel · ${views} visualizações</span><img src="/assets/provas/recortes/${arq}.webp?v=__V__" width="${w}" height="${h}" loading="lazy" decoding="async" alt="Insights do reel do Medina: ${views} visualizações e ${seg} seguidores."><span class="prova__ver">Ver print</span>`
-    : `<span class="cartao__quem">Aluno</span><span class="cartao__num">${seg}</span><span class="cartao__txt">seguidores em um único reel<br>${views} visualizações</span><img src="/assets/provas/recortes/${arq}.webp?v=__V__" width="${w}" height="${h}" loading="lazy" decoding="async" alt="">`) + `</a>`;
+const num = t => Number(t.replace(/\./g, ""));
+// Reels do Medina: número grande e o recorte legível do print, direto na tela.
+const prova = ([arq, , seg, views, w, h]) =>
+  `<figure class="prova" data-r><figcaption><span class="prova__num">${seg}</span><span class="prova__txt">seguidores em um único reel · ${views} visualizações</span></figcaption>` +
+  `<div class="prova__img"><img src="/assets/provas/recortes/${arq}.webp?v=__V__" width="${w}" height="${h}" loading="lazy" decoding="async" alt="Insights do reel do Medina: ${views} visualizações e ${seg} seguidores."></div></figure>`;
+// Alunos: ranking com barras proporcionais; o print do item ativo aparece na tela acima.
+const alunos = reels.slice(2), maior = num(alunos[0][2]);
+const prints = alunos.map(([arq, , seg, views, w, h], i) =>
+  `<img${i ? "" : ' class="on"'} data-print="${i}" src="/assets/provas/recortes/${arq}.webp?v=__V__" width="${w}" height="${h}" loading="lazy" decoding="async" alt="Insights do reel de um aluno: ${views} visualizações e ${seg} seguidores.">`).join("");
+const linhas = alunos.map(([, , seg, views], i) =>
+  `<li><button type="button" data-linha="${i}" aria-pressed="${i ? "false" : "true"}" style="--w:${Math.max(4, num(seg) / maior * 100).toFixed(1)}%"><b>${seg}</b><small>seguidores · ${views} views</small></button></li>`).join("");
 const jsonld = [
   { "@context": "https://schema.org", "@type": "Course", name: "Método Código da Audiência", description: "Método online de Nahuel Medina sobre posicionamento, conteúdo e crescimento no Instagram com vídeos curtos. 9 módulos e 23 aulas gravadas, com acesso por 12 meses.", inLanguage: "pt-BR", url: "https://www.medinamaker.com/", provider: { "@type": "Person", name: "Nahuel Medina", url: "https://www.medinamaker.com/" }, hasCourseInstance: { "@type": "CourseInstance", courseMode: "Online", startDate: "2026-12-12" } },
   { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faq.map(([q, a]) => ({ "@type": "Question", name: q, acceptedAnswer: { "@type": "Answer", text: a.replace(/<[^>]+>/g, "") } })) },
@@ -33,14 +39,14 @@ const css = readFileSync("src/estilo.css", "utf8").replace(/\/\*[\s\S]*?\*\//g, 
 let html = readFileSync("src/pagina.html", "utf8")
   .replace("__CSS__", css)
   .replace("__JSONLD__", JSON.stringify(jsonld))
-  .replace("__REELS_MEDINA__", reels.slice(0, 2).map(r => cartao(r, "medina", "data-r")).join(""))
-  .replace("__REELS_ALUNOS__", reels.slice(2).map(r => `<li>${cartao(r, "alunos")}</li>`).join(""))
+  .replace("__REELS_MEDINA__", reels.slice(0, 2).map(prova).join(""))
+  .replace("__ALUNOS_PRINTS__", prints).replace("__ALUNOS_LINHAS__", linhas)
   .replace("__CAPAS__", modulos.map((t, i) => { const n = String(i + 1).padStart(2, "0"); return `<li data-r><figure><img src="/assets/aulas/modulo-${n}.webp?v=__V__" width="600" height="800" loading="lazy" decoding="async" alt="Capa do módulo ${i + 1}: ${t}"><figcaption><span>Módulo ${n}</span>${t}</figcaption></figure></li>`; }).join(""))
   .replace("__FAQ__", faq.map(([q, a]) => `<details><summary>${q}</summary><p>${a}</p></details>`).join(""))
   .replaceAll("__GRUPO__", GRUPO).replaceAll("__SUPORTE__", SUPORTE);
-const fontes = ["nucleo.mjs", "visor.mjs", "medicao.mjs"].map(f => readFileSync(`src/${f}`, "utf8"));
+const fontes = ["nucleo.mjs", "medicao.mjs"].map(f => readFileSync(`src/${f}`, "utf8"));
 const V = createHash("sha1").update(html + fontes.join("")).digest("hex").slice(0, 8);
 writeFileSync("index.html", html.replaceAll("__V__", V));
-["nucleo.mjs", "visor.mjs", "medicao.mjs"].forEach((f, i) => writeFileSync(f, fontes[i].replaceAll("__V__", V)));
+["nucleo.mjs", "medicao.mjs"].forEach((f, i) => writeFileSync(f, fontes[i].replaceAll("__V__", V)));
 for (const f of ["privacidade.html", "termos.html"]) writeFileSync(f, readFileSync(`src/${f}`, "utf8").replace("__CSS_LEGAL__", readFileSync("src/legal.css", "utf8").replace(/\n\s*/g, "")));
 console.log("versão", V, "| index.html", (Buffer.byteLength(html) / 1024).toFixed(1), "KB");
