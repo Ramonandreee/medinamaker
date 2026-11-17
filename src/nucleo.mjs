@@ -90,9 +90,10 @@ if (ranking) {
   }
 }
 
-/* Botão do grupo: uma onda de alcance sai do ponto do toque e a seta segue em frente; o convite abre
-   logo em seguida (~380 ms, ainda dentro do gesto, então o navegador não bloqueia a nova aba).
-   Sem animação para quem pediu menos movimento. */
+/* Botão do grupo: um holofote atravessa o botão da esquerda para a direita e, no rastro da luz, surge
+   uma plateia; a seta dispara. O convite abre em ~420 ms, ainda dentro do gesto (o navegador não
+   bloqueia a nova aba). Sem animação para quem pediu menos movimento. */
+$$('.cta--principal').forEach(a => a.insertAdjacentHTML('afterbegin', '<span class="cta__palco" aria-hidden="true"><i class="cta__plateia"></i><i class="cta__holofote"></i></span>'));
 d.addEventListener('click', e => {
   const a = e.target.closest?.('a[data-grupo]');
   if (!a || !mov || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
@@ -105,8 +106,8 @@ d.addEventListener('click', e => {
   setTimeout(() => {
     const w = open(a.href, '_blank');
     if (w) w.opener = null; else location.href = a.href;
-    setTimeout(() => a.classList.remove('indo'), 200);
-  }, 380);
+    setTimeout(() => a.classList.remove('indo'), 300);
+  }, 420);
 });
 
 /* Medição: fora do caminho crítico. */

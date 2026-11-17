@@ -418,11 +418,17 @@ html{scroll-snap-type:y mandatory}
 .fala--solucao{font-size:clamp(28px,2.4vw + 16px,52px);line-height:1.18}
 .mov [data-tela] .fala--solucao ~ .fala--apoio .ln>span{transition-delay:calc(var(--i,0) * 60ms + 320ms)}
 @media (max-width:767px) and (orientation:portrait){.fala--solucao{font-size:clamp(22px,min(7.8vw,4.8svh),42px)}}
-/* Clique no botão do grupo: onda de alcance a partir do toque, anel que se expande como audiência
-   chegando e a seta que segue em frente. Só transform/opacity/sombra, ~400 ms. */
-.cta--principal.indo::before{content:"";position:absolute;left:var(--x,50%);top:var(--y,50%);width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;background:#ffffff4d;pointer-events:none;animation:onda .45s cubic-bezier(.2,.7,.3,1) forwards}
-.cta--principal.indo{animation:alcance .5s var(--entra)}
-.cta--principal.indo svg{animation:seta .42s var(--entra)}
-@keyframes onda{from{transform:scale(1);opacity:1}to{transform:scale(22);opacity:0}}
-@keyframes alcance{0%{box-shadow:0 0 0 0 #f47a4ccc,0 10px 30px #0a7a3d55}100%{box-shadow:0 0 0 16px #f47a4c00,0 10px 30px #0a7a3d55}}
-@keyframes seta{0%{transform:none}45%{transform:translateX(14px);opacity:0}46%{transform:translateX(-10px);opacity:0}100%{transform:none;opacity:1}}
+/* Clique no botão do grupo: um holofote cruza o botão da esquerda para a direita e, no rastro da luz,
+   surge uma plateia (duas fileiras de silhuetas). A seta dispara. Só transform, opacity e clip-path. */
+.cta__palco{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}
+.cta__palco i{position:absolute;display:block;opacity:0}
+.cta__holofote{top:-20%;bottom:-20%;left:0;width:46%;background:linear-gradient(100deg,#fff0 0%,#fff3 30%,#ffffffa6 50%,#fff3 70%,#fff0 100%);transform:translateX(-110%) skewX(-14deg)}
+.cta__plateia{left:0;right:0;bottom:-1px;height:40%;background:radial-gradient(circle at 50% 22%,#ffffff2e 0 2.3px,#fff0 2.8px) 5px 0/11px 100% repeat-x,radial-gradient(ellipse 4.6px 5.5px at 50% 100%,#ffffff2e 0 97%,#fff0 100%) 5px 0/11px 100% repeat-x,radial-gradient(circle at 50% 46%,#ffffff47 0 2.7px,#fff0 3.2px) 0 0/13px 100% repeat-x,radial-gradient(ellipse 5.6px 6.6px at 50% 100%,#ffffff47 0 97%,#fff0 100%) 0 0/13px 100% repeat-x;-webkit-mask-image:linear-gradient(#0000,#000 45%);mask-image:linear-gradient(#0000,#000 45%)}
+.cta--principal>span:not(.cta__palco),.cta--principal>svg{position:relative}
+.cta--principal.indo .cta__holofote{animation:holofote .56s cubic-bezier(.45,0,.2,1) forwards}
+.cta--principal.indo .cta__plateia{animation:plateia .56s cubic-bezier(.45,0,.2,1) forwards}
+.cta--principal.indo svg{animation:dispara .5s cubic-bezier(.5,0,.2,1) forwards}
+.cta--principal.indo{transform:scale(.985)}
+@keyframes holofote{0%{opacity:1;transform:translateX(-110%) skewX(-14deg)}85%{opacity:1}100%{opacity:0;transform:translateX(240%) skewX(-14deg)}}
+@keyframes plateia{0%{opacity:1;clip-path:inset(0 100% 0 0);transform:translateY(5px)}70%{transform:none}100%{opacity:1;clip-path:inset(0 0 0 0);transform:none}}
+@keyframes dispara{0%{transform:none}30%{transform:translateX(-3px)}100%{transform:translateX(34px);opacity:0}}
