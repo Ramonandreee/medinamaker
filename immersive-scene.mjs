@@ -40,9 +40,14 @@ function settleScroll() {
   scrollDirection = 0;
   if (target !== null) scrollToTarget(target);
 }
+const easeInOutCubic = t => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 function scrollToTarget(target) {
   programmaticScroll = true;
-  window.scrollTo({ top: target, behavior: motionPreference.matches ? 'instant' : 'smooth' });
+  if (window.__lenis && !motionPreference.matches) {
+    window.__lenis.scrollTo(target, { duration: 1.1, easing: easeInOutCubic, onComplete: () => queueSettle() });
+  } else {
+    window.scrollTo({ top: target, behavior: motionPreference.matches ? 'instant' : 'smooth' });
+  }
   queueSettle();
 }
 function interruptScroll() {
@@ -76,7 +81,14 @@ function paint() {
   slides.forEach((slide, index) => {
     const current = narrative.slides[index];
     slide.style.opacity = current.opacity.toFixed(4);
-    slide.style.transform = `translateY(${current.offsetY.toFixed(2)}px)`;
+    slide.style.transform = `translateY(${(current.offsetY * .45).toFixed(2)}px)`;
+    if (!motionPreference.matches) {
+      slide.style.setProperty('--in', current.entry.toFixed(4));
+      slide.style.setProperty('--out', current.exit.toFixed(4));
+    } else {
+      slide.style.removeProperty('--in');
+      slide.style.removeProperty('--out');
+    }
     slide.style.visibility = current.opacity > 0 ? 'visible' : 'hidden';
     slide.inert = !current.active;
     slide.setAttribute('aria-hidden', String(!current.active));
@@ -125,6 +137,13 @@ slides.forEach((slide, index) => {
   slide.querySelector('.story-next')?.addEventListener('click', event => goToSlide(index + 1, event.detail === 0));
 });
 window.addEventListener('scrollend', settleScroll);
+slides.forEach(slide => {
+  let d = 0;
+  for (const child of slide.children) {
+    const parts = child.classList.contains('story-copy') ? [...child.children] : [child];
+    for (const part of parts) part.style.setProperty('--d', String(d++));
+  }
+});
 root.dataset.storyReady = 'true';
 paint();
 if (window.location.hash === '#oferta') requestAnimationFrame(() => offer.scrollIntoView());

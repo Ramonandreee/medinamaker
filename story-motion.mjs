@@ -52,7 +52,8 @@ export function storyState(scrollY, viewportHeight, count, reducedMotion = false
       largestOpacity = opacity;
       activeIndex = index;
     }
-    return { opacity, offsetY, active: false };
+    // entry/exit expostos para a coreografia em camadas (cada filho do slide entra com atraso próprio).
+    return { opacity, offsetY, entry, exit, active: false };
   });
   // Crossfades may show two statements, but only one enters keyboard/AT navigation.
   if (activeIndex >= 0 && largestOpacity > .05) slides[activeIndex].active = true;
