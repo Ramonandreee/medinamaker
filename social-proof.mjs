@@ -3,23 +3,23 @@ export const proofCollections = {
   medina: {
     category: 'A trajetória do Medina',
     items: [
-      { file: 'perfil-medina.jpeg', title: 'O perfil do Medina', alt: 'Perfil medinamaker no Instagram com 581 mil seguidores.', caption: 'Registro do perfil de Medina: 581 mil seguidores no momento da captura. O total do perfil não representa, por si só, ganho em um período específico.' },
-      { file: 'painel-medina-30-dias.jpeg', title: 'Painel do Medina · 30 dias', alt: 'Painel de 30 dias de Medina: 14.833.668 visualizações, 581.071 seguidores totais e mais 191.019 seguidores líquidos.', caption: 'Período exibido: 5 de outubro a 3 de novembro. 14.833.668 visualizações, 581.071 seguidores totais e +191.019 seguidores líquidos. Registro individual, não uma garantia de resultado.' },
+      { file: 'perfil-medina.webp', title: 'O perfil do Medina', alt: 'Perfil medinamaker no Instagram com 581 mil seguidores.', caption: 'Registro do perfil de Medina: 581 mil seguidores no momento da captura. O total do perfil não representa, por si só, ganho em um período específico.' },
+      { file: 'painel-medina-30-dias.webp', title: 'Painel do Medina · 30 dias', alt: 'Painel de 30 dias de Medina: 14.833.668 visualizações, 581.071 seguidores totais e mais 191.019 seguidores líquidos.', caption: 'Período exibido: 5 de outubro a 3 de novembro. 14.833.668 visualizações, 581.071 seguidores totais e +191.019 seguidores líquidos. Registro individual, não uma garantia de resultado.' },
     ],
   },
   resultados: {
     category: 'Resultados de Medina e alunos',
     items: [
-      ['medina-reel-6090491.jpeg', '6.090.491', '97.039', 'Medina'],
-      ['medina-reel-593443.jpeg', '593.443', '51.191', 'Medina'],
-      ['aluno-1419576.jpeg', '1.419.576', '36.769', 'aluno'],
-      ['aluno-1162803.jpeg', '1.162.803', '49.891', 'aluno'],
-      ['aluno-259397.jpeg', '259.397', '10.166', 'aluno'],
-      ['aluno-202707.jpeg', '202.707', '1.068', 'aluno'],
-      ['aluno-149207.jpeg', '149.207', '943', 'aluno'],
-      ['aluno-120024.jpeg', '120.024', '3.674', 'aluno'],
-      ['aluno-94664.jpeg', '94.664', '2.890', 'aluno'],
-      ['aluno-81931.jpeg', '81.931', '4.770', 'aluno'],
+      ['medina-reel-6090491.webp', '6.090.491', '97.039', 'Medina'],
+      ['medina-reel-593443.webp', '593.443', '51.191', 'Medina'],
+      ['aluno-1419576.webp', '1.419.576', '36.769', 'aluno'],
+      ['aluno-1162803.webp', '1.162.803', '49.891', 'aluno'],
+      ['aluno-259397.webp', '259.397', '10.166', 'aluno'],
+      ['aluno-202707.webp', '202.707', '1.068', 'aluno'],
+      ['aluno-149207.webp', '149.207', '943', 'aluno'],
+      ['aluno-120024.webp', '120.024', '3.674', 'aluno'],
+      ['aluno-94664.webp', '94.664', '2.890', 'aluno'],
+      ['aluno-81931.webp', '81.931', '4.770', 'aluno'],
     ].map(([file, views, followers, author]) => ({
       file, author,
       category: author === 'Medina' ? 'Resultado do Medina' : 'Resultado compartilhado por aluno',
@@ -31,8 +31,8 @@ export const proofCollections = {
   grupo: {
     category: 'Por dentro do grupo de alunos',
     items: [
-      { file: 'grupo-relato.jpeg', title: 'Uma conquista compartilhada no grupo', alt: 'Aluno compartilha resultado de 491.548 visualizações e 2.834 seguidores no grupo Crescer Instagram.', caption: 'Conversa do grupo com relato de um resultado individual. Print original enviado por Medina. Resultados não são garantidos.' },
-      { file: 'grupo-trocas.jpeg', title: 'Trocas entre os participantes', alt: 'Print do grupo de alunos com resultado de 149.207 visualizações, 943 seguidores e a mensagem Ta explodindo.', caption: 'Registro de uma troca no grupo Crescer Instagram. O resultado desta imagem também aparece na galeria de resultados; não é um caso adicional.' },
+      { file: 'grupo-relato.webp', title: 'Uma conquista compartilhada no grupo', alt: 'Aluno compartilha resultado de 491.548 visualizações e 2.834 seguidores no grupo Crescer Instagram.', caption: 'Conversa do grupo com relato de um resultado individual. Print original enviado por Medina. Resultados não são garantidos.' },
+      { file: 'grupo-trocas.webp', title: 'Trocas entre os participantes', alt: 'Print do grupo de alunos com resultado de 149.207 visualizações, 943 seguidores e a mensagem Ta explodindo.', caption: 'Registro de uma troca no grupo Crescer Instagram. O resultado desta imagem também aparece na galeria de resultados; não é um caso adicional.' },
     ],
   },
 };
