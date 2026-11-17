@@ -1,6 +1,6 @@
 // Núcleo da página: palco, entrada das telas, contagem, ranking dos alunos e carregamento sob demanda.
 // Rolagem sempre nativa. Animações só com transform/opacity (as classes vivem no CSS).
-const V = 'e6925ae0';
+const V = 'a8184b36';
 const d = document, root = d.documentElement;
 const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
 const mov = root.classList.contains('mov'), leve = root.classList.contains('leve');

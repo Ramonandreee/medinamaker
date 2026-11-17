@@ -382,3 +382,7 @@ html{scroll-snap-type:y mandatory}
 .mov [data-tela].ok .marca svg{animation:traco .55s cubic-bezier(.65,0,.35,1) var(--m,.5s) both}
 .mov .ja .marca svg{animation:none;clip-path:none}
 @keyframes traco{from{clip-path:inset(-30% 100% -30% -10%)}to{clip-path:inset(-30% -10% -30% -10%)}}
+/* A pergunta da virada sozinha na tela, grande; "nunca" em laranja, sem caixa alta. */
+.fala--pergunta{font-size:clamp(36px,3.4vw + 18px,76px);line-height:1.1;font-weight:500}
+.fala--pergunta .laranja{font-weight:700;text-transform:none}
+@media (max-width:767px) and (orientation:portrait){.fala--pergunta{font-size:clamp(30px,min(10.9vw,6.4svh),56px)}}
