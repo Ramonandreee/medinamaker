@@ -42,7 +42,7 @@ if (luz && mov && matchMedia('(hover: hover) and (pointer: fine)').matches) {
    Quem passa direto (âncora, rolagem rápida) encontra a tela já completa. */
 $$('[data-linhas]').forEach(p => $$('.ln > span', p).forEach((s, i) => s.style.setProperty('--i', i)));
 const telas = $$('[data-tela]');
-telas.forEach(t => $$('[data-r]', t).forEach((el, i) => el.style.setProperty('--d', `${Math.min(i, 7) * 60}ms`)));
+telas.forEach(t => $$('[data-r]', t).forEach((el, i) => el.style.setProperty('--d', `${Math.min(i, 4) * 80}ms`)));
 function contar(el) {
   const fim = Number(el.dataset.conta), texto = el.textContent;
   if (!mov || leve || !fim) return;
@@ -68,6 +68,18 @@ if ('IntersectionObserver' in window) {
   const brilho = new IntersectionObserver(es => es.forEach(e => e.target.classList.toggle('visivel', e.isIntersecting)));
   $$('.cta--principal').forEach(el => brilho.observe(el));
 } else telas.forEach(t => t.classList.add('ok'));
+
+/* Troca de tela no celular em pé: a tela que deixa de ocupar a maior parte da vista ganha .fora
+   (saiu por cima) ou .fora-baixo (saiu por baixo); o CSS apaga o conteúdo devagar. */
+if (mov && 'IntersectionObserver' in window && matchMedia('(max-width: 767px) and (orientation: portrait)').matches) {
+  const vista = new IntersectionObserver(es => es.forEach(e => {
+    const t = e.target, atual = e.intersectionRect.height >= innerHeight * 0.5;
+    if (!t.classList.contains('ok')) return;
+    t.classList.toggle('fora', !atual && e.boundingClientRect.top < 0);
+    t.classList.toggle('fora-baixo', !atual && e.boundingClientRect.top > 0);
+  }), { threshold: [0, 0.2, 0.4, 0.5, 0.6, 0.8, 1] });
+  telas.forEach(t => vista.observe(t));
+}
 
 /* Alunos: ranking com barras; o print do item ativo aparece na tela. Avança sozinho enquanto
    a tela está visível, até a pessoa tocar em um item. */

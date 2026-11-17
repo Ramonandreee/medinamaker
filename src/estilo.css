@@ -517,3 +517,20 @@ linear-gradient(var(--cobre),var(--cobre)) 100% 100%/26px 1px no-repeat,linear-g
 .topo__logo{width:min(94vw,17svh * 3.31)}
 .topo__sub{font-size:clamp(12px,3.65vw,17px);line-height:1.4}
 }
+/* ===== Fluidez ===== */
+/* Visor: preso à área sempre visível (abaixo da barra de status e acima da barra do Safari), mais discreto. */
+@media (max-width:767px) and (orientation:portrait){
+.palco__visor{top:max(14px,env(safe-area-inset-top) + 8px);bottom:calc(100lvh - 100svh + max(14px,env(safe-area-inset-bottom) + 8px));left:14px;right:14px;
+background-size:20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1px 20px}
+.palco__visor{opacity:calc(var(--p) * .42)}
+}
+/* Entradas mais lentas e suaves. */
+.mov [data-tela] [data-r]{transform:translate3d(0,22px,0);transition-duration:.9s,.9s;transition-timing-function:cubic-bezier(.22,1,.36,1),cubic-bezier(.22,1,.36,1)}
+.mov [data-tela] .ln>span{transition:transform 1s cubic-bezier(.22,1,.36,1) calc(var(--i,0) * 110ms),opacity .9s cubic-bezier(.22,1,.36,1) calc(var(--i,0) * 110ms)}
+
+/* Troca de tela: quando uma tela deixa de ser a atual, o conteúdo sobe de leve e se apaga devagar;
+   ao voltar a ser a atual, retorna. Transições acionadas pela troca (não pela rolagem). */
+.mov [data-tela].ok > *{transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1)}
+.mov [data-tela].ok.fora > *{opacity:0;transform:translate3d(0,-4vh,0)}
+.mov [data-tela].ok.fora-baixo > *{opacity:0;transform:translate3d(0,4vh,0)}
+
