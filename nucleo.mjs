@@ -1,6 +1,6 @@
 // Núcleo da página: palco, entrada das telas, contagem, ranking dos alunos e carregamento sob demanda.
 // Rolagem sempre nativa. Animações só com transform/opacity (as classes vivem no CSS).
-const V = '395b7811';
+const V = 'abcb611f';
 const d = document, root = d.documentElement;
 const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
 const mov = root.classList.contains('mov'), leve = root.classList.contains('leve');
@@ -81,10 +81,10 @@ if (mov && 'IntersectionObserver' in window && matchMedia('(max-width: 767px) an
   telas.forEach(t => vista.observe(t));
 }
 
-/* Alunos: ranking com barras; o print do item ativo aparece na tela. Avança sozinho enquanto
-   a tela está visível, até a pessoa tocar em um item. */
-const ranking = $('[data-ranking]');
-if (ranking) {
+/* Ranking dos alunos e vitrine da trajetória: o print do item ativo aparece na tela. Avança
+   sozinho enquanto a tela está visível, até a pessoa tocar em um item. */
+$$('[data-ranking]').forEach(ranking => {
+  const intervalo = Number(ranking.dataset.intervalo) || 2600;
   const botoes = $$('[data-linha]', ranking), imgs = $$('[data-print]', ranking);
   let atual = 0, timer = 0, tocou = false;
   const mostrar = i => {
@@ -96,11 +96,11 @@ if (ranking) {
   botoes.forEach((b, i) => b.addEventListener('click', () => { tocou = true; parar(); mostrar(i); }));
   if (mov && 'IntersectionObserver' in window) {
     new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !tocou && !timer) timer = setInterval(() => mostrar((atual + 1) % botoes.length), 2600);
+      if (e.isIntersecting && !tocou && !timer) timer = setInterval(() => mostrar((atual + 1) % botoes.length), intervalo);
       else if (!e.isIntersecting) parar();
     }, { threshold: 0.6 }).observe(ranking);
   }
-}
+});
 
 /* Botão do grupo: um holofote atravessa o botão da esquerda para a direita e, no rastro da luz, surge
    uma plateia; a seta dispara. O convite abre em ~420 ms, ainda dentro do gesto (o navegador não

@@ -536,3 +536,27 @@ background-size:20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1
 
 /* Enquadramento (cantos de visor) retirado a pedido. */
 .palco__visor{display:none}
+
+/* Trajetória: vitrine única com os dois prints alternando e os números como abas. */
+.vitrine{display:grid;gap:14px;width:100%}
+.vitrine__tela{position:relative;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);place-items:center;min-height:0;padding:16px;border-radius:22px;overflow:hidden;
+background:radial-gradient(120% 90% at 50% 0%,#2a1d14 0%,#121112 55%,#0b0b0c 100%);border:1px solid #c17a4538;box-shadow:inset 0 1px 0 #ffffff0d,0 24px 60px -30px #c17a4559}
+.vitrine__tela img{grid-area:1/1;width:100%;height:100%;object-fit:contain;border-radius:14px;opacity:0;transform:scale(.97) translate3d(0,8px,0);transition:opacity .7s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 18px 30px #000c)}
+.vitrine__tela img.on{opacity:1;transform:none}
+.vitrine__dados{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));border-top:1px solid var(--linha)}
+.vitrine__dados button{position:relative;display:grid;align-content:start;gap:6px;min-height:64px;padding:14px 8px 4px 0;border:0;background:none;text-align:left;color:#8d857a;transition:color .5s}
+.vitrine__dados button::before{content:"";position:absolute;top:-1px;left:0;right:14px;height:2px;background:linear-gradient(90deg,var(--cobre-claro),var(--cobre));transform:scaleX(0);transform-origin:left;transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.vitrine__dados button[aria-pressed=true]{color:var(--marfim)}
+.vitrine__dados button[aria-pressed=true]::before{transform:none}
+.vitrine__dados b{font-weight:300;font-size:clamp(30px,2vw + 22px,48px);line-height:1;letter-spacing:-.015em;font-variant-numeric:tabular-nums}
+.vitrine__dados small{font-size:12.5px;line-height:1.35;color:var(--cinza);letter-spacing:.01em}
+@media (min-width:768px){.vitrine{grid-template-columns:1.5fr 1fr;align-items:stretch}.vitrine__tela{min-height:420px}.vitrine__dados{grid-template-columns:minmax(0,1fr);border-top:0;border-left:1px solid var(--linha);align-content:center}.vitrine__dados button{padding:22px 0 22px 26px}.vitrine__dados button::before{top:0;bottom:0;left:-1px;right:auto;width:2px;height:auto;transform:scaleY(0);transform-origin:top}.vitrine__dados button[aria-pressed=true]::before{transform:none}}
+@media (max-width:767px) and (orientation:portrait){
+.vitrine{flex:1 1 0;min-height:0;grid-template-rows:minmax(0,1fr) auto}
+#trajetoria .lead{font-size:clamp(15px,min(4.3vw,2.2svh),19px)}
+}
+@media (max-width:767px) and (orientation:portrait){
+.vitrine{grid-template-rows:auto auto;align-content:center}
+.vitrine__tela{padding:10px;max-height:100%}
+.vitrine__tela img{height:auto;aspect-ratio:auto}
+}
