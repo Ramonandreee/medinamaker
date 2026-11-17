@@ -349,3 +349,8 @@ html{scroll-snap-type:y mandatory}
 .mov [data-tela] .marca path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .85s cubic-bezier(.65,0,.35,1) var(--m,.6s)}
 .mov [data-tela].ok .marca path{stroke-dashoffset:0}
 .mov .ja .marca path{transition:none}
+/* Falas no celular: cada linha do texto cabe inteira, sem quebrar em duas. */
+@media (max-width:767px) and (orientation:portrait){
+.fala{font-size:clamp(24px,min(8.1vw,5svh),40px);line-height:1.16}
+.fala--grande{font-size:clamp(34px,min(11.6vw,7svh),60px)}
+}
