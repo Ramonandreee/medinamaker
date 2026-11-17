@@ -386,3 +386,6 @@ html{scroll-snap-type:y mandatory}
 .fala--pergunta{font-size:clamp(36px,3.4vw + 18px,76px);line-height:1.1;font-weight:500}
 .fala--pergunta .laranja{font-weight:700;text-transform:none}
 @media (max-width:767px) and (orientation:portrait){.fala--pergunta{font-size:clamp(28px,min(10.2vw,6svh),54px)}}
+.fala--apoio .apagado{color:#9fabb3}
+.ln--pausa{margin-top:.6em}
+@media (max-width:767px) and (orientation:portrait){.tela--virada .fala--apoio{font-size:clamp(17px,min(6vw,3svh),27px)}}
