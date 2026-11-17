@@ -410,3 +410,7 @@ html{scroll-snap-type:y mandatory}
 .topo__sub{margin-top:0;font-size:clamp(13px,4vw,19px);line-height:1.4;max-width:none;white-space:nowrap}
 .topo .cta{max-width:none}
 }
+/* Círculo em palavra toda em maiúsculas (com acento): mais folga em volta. */
+.marca--circ.marca--caixa{margin-inline:.34em .46em}
+.marca--circ.marca--caixa svg{left:-.36em;top:-.28em;width:calc(100% + .86em);height:calc(100% + .5em)}
+@media (max-width:767px) and (orientation:portrait){.tela--virada .fala--resposta{font-size:clamp(34px,min(12.2vw,7svh),60px)}}
