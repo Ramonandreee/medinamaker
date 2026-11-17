@@ -33,3 +33,12 @@ O arquivo `_headers` define o cache. Teste local: `npx serve .` ou qualquer serv
 - **`/api/measurement`**: `measurement.mjs` envia eventos para essa rota, que existe no app atual (servidor). Este repositório é estático e não tem a rota: em produção é preciso manter o backend atual ou implementar uma Function equivalente, senão a mensuração própria para.
 - **Fonte**: `assets/sans.woff2` é a OpenAI Sans, fonte proprietária sem licença para este uso. Substituir por uma fonte livre (decisão de design).
 - **Pixel Meta e mensuração** só rodam em `medinamaker.com` / `www.medinamaker.com`. Prévias (`*.pages.dev`) não enviam eventos.
+
+## Branch `reestruturacao`
+
+Reestruturação para o lançamento: fonte em `src/` (`pagina.html`, `estilo.css`, `nucleo.mjs`, `visor.mjs`, `medicao.mjs`, páginas legais). `node scripts/build.mjs` gera `index.html`, os módulos versionados e as páginas legais na raiz. Não edite os arquivos gerados.
+
+- Rolagem nativa (sem Lenis e sem encaixe automático); animações só com `transform`/`opacity`; versão leve automática em aparelhos fracos, Save-Data e 2G.
+- Pixel da Meta: só em medinamaker.com e depois do aceite no aviso de cookies. Eventos: `Lead` (com `eventID`), `Contact`, `ViewContent`.
+- Medição própria: o corpo enviado a `/api/measurement` agora inclui `motion` e eventos novos (`scene_<nome>`, `whatsapp_group_click:<botão>`, `whatsapp_support_click:<tipo>`, `skip_offer:<origem>`). O servidor precisa aceitar esses nomes.
+- Pendências marcadas com `[PREENCHER]` e `[VALIDAR COM ADVOGADO]` no rodapé, em `privacidade.html` e em `termos.html`.
