@@ -341,11 +341,11 @@ html{scroll-snap-type:y mandatory}
 .marca svg{position:absolute;max-width:none;pointer-events:none;overflow:visible;fill:none;stroke:var(--laranja);stroke-linecap:round;stroke-linejoin:round}
 .marca path{stroke-width:3.2px;vector-effect:non-scaling-stroke}
 .marca--sub svg{left:-.04em;bottom:-.16em;width:calc(100% + .08em);height:.32em}
-.marca--circ{margin-inline:.14em .2em}
-.marca--circ svg{left:-.2em;top:-.12em;width:calc(100% + .5em);height:calc(100% + .26em)}
+.marca--circ{margin-inline:.26em .24em}
+.marca--circ svg{left:-.3em;top:-.2em;width:calc(100% + .62em);height:calc(100% + .38em)}
 .nw{white-space:nowrap}
 .marca--circ path{stroke-width:3.6px}
-.ln--folga{padding:.22em .3em;margin:-.22em -.3em}
+.ln--folga{padding:.26em .36em;margin:-.26em -.36em}
 .mov [data-tela] .marca path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .85s cubic-bezier(.65,0,.35,1) var(--m,.6s)}
 .mov [data-tela].ok .marca path{stroke-dashoffset:0}
 .mov .ja .marca path{transition:none}

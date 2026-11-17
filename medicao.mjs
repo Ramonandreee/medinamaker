@@ -18,7 +18,7 @@ const aviso = d.querySelector('[data-cookies]');
 function carregarPixel() {
   if (!oficial || semRastreio || w.__pixelPedido) return;
   w.__pixelPedido = true;
-  const s = d.createElement('script'); s.src = '/meta-pixel.js?v=230a31d6'; s.async = true; d.head.append(s);
+  const s = d.createElement('script'); s.src = '/meta-pixel.js?v=79c190d1'; s.async = true; d.head.append(s);
 }
 const fbq = (...a) => { if (oficial && ler() === 'sim' && typeof w.fbq === 'function') w.fbq(...a); };
 if (aviso) {
