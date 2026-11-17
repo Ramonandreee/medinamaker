@@ -1,4 +1,4 @@
-const TRACK_URL = '/assets/audio/codigo-cyberpunk-original-v1.wav';
+const TRACK_URL = '/assets/audio/codigo-cyberpunk-original-v1.mp3';
 const GESTURES = ['pointerdown', 'touchend', 'keydown', 'click'];
 
 /** Original, pre-attenuated audio. Browser autoplay policy remains authoritative. */
@@ -11,6 +11,8 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   let element;
   let destroyed = false;
   let gesturesAttached = false;
+  // A trilha só é baixada depois do primeiro gesto: navegadores bloqueiam som antes disso.
+  let activated = false;
   const setState = state => { if (!destroyed) doc.documentElement.dataset.ambientAudio = state; };
 
   function removeGestures() {
@@ -107,6 +109,7 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   function onGesture(event) {
     if (event.isTrusted === false) return;
     if (event.type === 'keydown' && (event.ctrlKey || event.metaKey || event.altKey)) return;
+    activated = true;
     void attemptStart();
   }
 
@@ -115,7 +118,11 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
       if (context?.state === 'running') void context.suspend().catch(() => {});
       element?.pause();
       setState('paused');
-    } else void attemptStart();
+    } else if (activated) void attemptStart();
+  }
+
+  function onPageShow() {
+    if (activated) void attemptStart();
   }
 
   function pauseForNavigation() {
@@ -129,7 +136,7 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
     removeGestures();
     doc.removeEventListener('visibilitychange', pauseWhenHidden);
     win.removeEventListener('pagehide', pauseForNavigation);
-    win.removeEventListener('pageshow', attemptStart);
+    win.removeEventListener('pageshow', onPageShow);
     source?.stop();
     element?.pause();
     if (context && context.state !== 'closed') void context.close().catch(() => {});
@@ -138,8 +145,8 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   addGestures();
   doc.addEventListener('visibilitychange', pauseWhenHidden);
   win.addEventListener('pagehide', pauseForNavigation);
-  win.addEventListener('pageshow', attemptStart);
-  void attemptStart();
+  win.addEventListener('pageshow', onPageShow);
+  setState('waiting-for-interaction');
   return { attemptStart, destroy };
 }
 
