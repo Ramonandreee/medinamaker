@@ -414,3 +414,7 @@ html{scroll-snap-type:y mandatory}
 .marca--circ.marca--caixa{margin-inline:.46em}
 .marca--circ.marca--caixa svg{left:-.42em;top:-.28em;width:calc(100% + .88em);height:calc(100% + .52em)}
 @media (max-width:767px) and (orientation:portrait){.tela--virada .fala--resposta{font-size:clamp(34px,min(12.2vw,7svh),60px)}}
+/* Tela da solução sem nomeá-la: "Existe um jeito…" em destaque e o resto como apoio. */
+.fala--solucao{font-size:clamp(28px,2.4vw + 16px,52px);line-height:1.18}
+.mov [data-tela] .fala--solucao ~ .fala--apoio .ln>span{transition-delay:calc(var(--i,0) * 60ms + 320ms)}
+@media (max-width:767px) and (orientation:portrait){.fala--solucao{font-size:clamp(22px,min(7.8vw,4.8svh),42px)}}
