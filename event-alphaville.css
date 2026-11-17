@@ -1,0 +1,19 @@
+/* Online availability restored while preserving the original opening layout. */
+.brand__status { color: #fff; font-size: clamp(14px, 1.4vw, 17px); font-weight: 600; line-height: 1.4; letter-spacing: .06em; text-shadow: 0 2px 10px #071017; }
+.brand__hint { margin-top: 5px; color: #fff; font-size: clamp(12px, 1.05vw, 13px); line-height: 1.4; opacity: .85; text-shadow: 0 2px 10px #071017; }
+/* Compact in-person details below the online opening. */
+.story-copy .event-kicker { margin-bottom: 14px; color: #ffc39f; font-size: .58em; font-weight: 700; letter-spacing: .035em; }
+.event-feature { max-width: 650px; margin: 36px auto 0; padding: 24px 0; border-top: 1px solid #ffffff24; text-align: left; }
+.event-feature h3 { margin: 0; color: #e6ecef; font-size: 20px; font-weight: 650; line-height: 1.35; letter-spacing: -.02em; }
+.event-feature__when { margin: 8px 0 0; color: #ed8156; font-size: 14px; font-weight: 600; line-height: 1.5; }
+.event-feature__description { margin: 12px 0 0; color: #bdc7cb; font-size: 15px; line-height: 1.6; }
+.event-feature__online { margin: 10px 0 0; color: #adbbc2; font-size: 14px; line-height: 1.6; }
+.event-feature__online strong { color: #e3eaee; }
+.event-feature + .faq { margin-top: 56px; }
+@media (max-width: 600px) {
+  .event-feature { margin-top: 28px; padding: 22px 0; }
+  .event-feature h3 { font-size: 19px; }
+  .event-feature + .faq { margin-top: 48px; }
+}
+
+.brand__status .brand__online { color: #f26a2c; }

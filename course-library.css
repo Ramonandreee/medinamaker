@@ -1,0 +1,24 @@
+/* Course covers use the approved artwork, without cropping their titles. */
+.course-library { position: relative; z-index: 3; padding: clamp(58px, 8vw, 96px) 24px 32px; background: #0b141af5; }
+.course-library__inner { max-width: 1120px; margin: 0 auto; }
+.course-library__header { max-width: 760px; margin: 0 auto 36px; text-align: center; }
+.course-library__eyebrow { margin: 0 0 14px; color: #ed8156; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.course-library h2 { margin: 0; font-size: clamp(29px, 4vw, 46px); line-height: 1.12; letter-spacing: -.035em; text-wrap: balance; }
+.course-library__intro { margin: 18px auto 0; color: #bdc7cb; font-size: 16px; line-height: 1.6; max-width: 620px; }
+.course-library__grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px 16px; margin: 0; padding: 0; list-style: none; }
+.course-library__card { flex: 0 0 calc((100% - 64px) / 5); min-width: 0; }
+.course-library__card figure { margin: 0; }
+.course-library__card img { display: block; width: 100%; height: auto; aspect-ratio: 5 / 7; object-fit: contain; background: #081015; border-radius: 10px; border: 1px solid #ffffff24; box-shadow: 0 8px 26px #0004; }
+.course-library__card figcaption { padding: 12px 2px 0; text-align: left; }
+.course-library__number { display: block; margin-bottom: 4px; color: #ed8156; font-size: 10px; letter-spacing: .13em; font-weight: 700; text-transform: uppercase; }
+.course-library__card h3 { margin: 0; color: #f4f5f6; font-size: 14px; line-height: 1.4; font-weight: 600; }
+.course-library__footnote { margin: 30px 0 0; text-align: center; color: #aebbc3; font-size: 13px; line-height: 1.6; }
+@media (max-width: 900px) { .course-library__card { flex-basis: calc((100% - 32px) / 3); } }
+@media (max-width: 540px) {
+  .course-library { padding: 52px 20px 20px; }
+  .course-library__header { margin-bottom: 28px; }
+  .course-library__intro { font-size: 14px; }
+  .course-library__grid { gap: 22px 12px; }
+  .course-library__card { flex-basis: calc((100% - 12px) / 2); }
+  .course-library__card h3 { font-size: 13px; }
+}

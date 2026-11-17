@@ -1,0 +1,17 @@
+/* A final scene beside the FAQ, without changing the existing page design. */
+.postcredits { margin-top: clamp(72px, 12vw, 120px); padding-top: 42px; border-top: 1px solid #ffffff24; }
+.postcredits__title { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 0 0 32px; color: #ed8156; font-size: 12px; font-weight: 750; line-height: 1.5; letter-spacing: .22em; text-transform: uppercase; }
+.postcredits__title > span { width: 30px; height: 1px; background: #ed81565c; }
+.postcredits__figure { width: min(100%, 680px); margin: 0 auto; }
+.postcredits__image-link { display: block; overflow: hidden; border: 1px solid #ffffff24; border-radius: 12px; background: #090d10; color: #bdc7cb; text-decoration: none; }
+.postcredits__image-link:focus-visible { outline: 2px solid #fff; outline-offset: 5px; }
+.postcredits__image-link img { display: block; width: 100%; height: auto; object-fit: contain; }
+.postcredits__zoom { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; border-top: 1px solid #ffffff17; color: #bdc7cb; font-size: 12px; line-height: 1.5; }
+.postcredits__zoom > span { color: #ed8156; font-size: 17px; }
+.postcredits__image-link:hover .postcredits__zoom { color: #fff; }
+.postcredits__transcript { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+@media (max-width: 600px) {
+  .postcredits { margin-top: 72px; padding-top: 32px; }
+  .postcredits__title { gap: 14px; margin-bottom: 26px; font-size: 11px; }
+  .postcredits__image-link { border-radius: 8px; }
+}
