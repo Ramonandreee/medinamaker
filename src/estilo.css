@@ -353,9 +353,17 @@ html{scroll-snap-type:y mandatory}
 .mov .ja .marca path{transition:none}
 /* Falas no celular: cada linha do texto cabe inteira, sem quebrar em duas. */
 @media (max-width:767px) and (orientation:portrait){
-.fala{font-size:clamp(24px,min(8.1vw,5svh),40px);line-height:1.16}
+.fala{font-size:clamp(21px,min(7.1vw,4.6svh),38px);line-height:1.18}
 .fala--grande{font-size:clamp(34px,min(11.6vw,7svh),60px)}
 }
 /* A promessa tem a linha mais longa ("No Código da Audiência,", ~10,8 em em negrito). Folga de ~12% para o
    negrito sintetizado do Safari, que é mais largo, não quebrar a linha. */
-@media (max-width:767px) and (orientation:portrait){[data-cena=promessa] .fala{font-size:clamp(22px,min(7.3vw,4.6svh),38px)}}
+/* Virada: frase grande e, logo abaixo, a promessa menor, que entra depois da frase grande. */
+.tela--virada{align-content:center;gap:clamp(18px,3.4svh,40px)}
+.fala--apoio{font-size:clamp(19px,1.6vw + 12px,32px);line-height:1.3;color:#d9e0e4}
+.mov [data-tela] .fala--apoio .ln>span{transition-delay:calc(var(--i,0) * 70ms + 420ms)}
+@media (max-width:767px) and (orientation:portrait){
+.tela--virada{display:flex;flex-direction:column;align-items:center}
+.fala--apoio{font-size:clamp(17px,min(5.6vw,3svh),26px)}
+[data-cena=promessa] .fala--grande{font-size:clamp(36px,min(12.6vw,7svh),62px)}
+}
