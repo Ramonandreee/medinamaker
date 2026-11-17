@@ -222,7 +222,7 @@ html{scroll-snap-type:y mandatory}
 .palco__foto img{object-position:50% 62%}
 
 /* Primeira tela: marca grande no alto, botão e data embaixo. */
-.topo{min-height:100svh;min-height:100dvh;place-items:stretch;padding:max(64px,env(safe-area-inset-top) + 56px) var(--g) max(18px,env(safe-area-inset-bottom) + 12px)}
+.topo{min-height:100svh;min-height:100lvh;place-items:stretch;padding:max(64px,env(safe-area-inset-top) + 56px) var(--g) max(18px,env(safe-area-inset-bottom) + 12px)}
 .topo__conteudo{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:100%}
 .topo__logo{width:min(90vw,40svh * 1.42)}
 .topo__sub{margin-top:10px;font-size:clamp(17px,4.8vw,21px);max-width:24ch}
@@ -232,8 +232,8 @@ html{scroll-snap-type:y mandatory}
 .rolar{display:none}
 
 /* Demais telas: altura e largura inteiras, tipografia proporcional à tela. */
-[data-tela]{min-height:100svh;min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:max(68px,env(safe-area-inset-top) + 60px) var(--g) max(24px,env(safe-area-inset-bottom) + 18px)}
-.cheia{height:100svh;height:100dvh}
+[data-tela]{min-height:100svh;min-height:100lvh;display:flex;flex-direction:column;justify-content:center;padding:max(68px,env(safe-area-inset-top) + 60px) var(--g) max(24px,env(safe-area-inset-bottom) + 18px)}
+.cheia{height:100svh;height:100lvh}
 .secao,.chamada,.fechamento{background:#10191f}
 .chamada{background:#10191fd9}
 .fechamento{background:#0b1217e0}
@@ -325,13 +325,13 @@ html{scroll-snap-type:y mandatory}
 #consultoria-individual .subtitulo{font-size:18px}
 .preco{font-size:36px}
 }
-/* Safari: a barra do navegador encolhe e volta, e a altura dinâmica (dvh) muda junto. O conteúdo de cada
+/* Safari: a barra do navegador encolhe e volta. Telas com altura fixa (lvh, barra encolhida) e conteúdo de cada
    tela fica sempre dentro da menor altura (svh), acima da barra: o espaço extra vira só fundo. */
 @media (max-width:767px) and (orientation:portrait){
-.topo{padding-bottom:calc(100dvh - 100svh + max(18px,env(safe-area-inset-bottom) + 12px))}
-[data-tela]{padding-bottom:calc(100dvh - 100svh + max(24px,env(safe-area-inset-bottom) + 18px))}
+.topo{padding-bottom:calc(100lvh - 100svh + max(18px,env(safe-area-inset-bottom) + 12px))}
+[data-tela]{padding-bottom:calc(100lvh - 100svh + max(24px,env(safe-area-inset-bottom) + 18px))}
 }
 @media (max-width:767px) and (orientation:portrait) and (max-height:700px){
-[data-tela]{padding-bottom:calc(100dvh - 100svh + max(16px,env(safe-area-inset-bottom) + 12px))}
+[data-tela]{padding-bottom:calc(100lvh - 100svh + max(16px,env(safe-area-inset-bottom) + 12px))}
 }
 .topo__data strong{color:var(--laranja2)}
