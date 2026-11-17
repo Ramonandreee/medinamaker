@@ -13,6 +13,9 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   let gesturesAttached = false;
   // A trilha só é baixada depois do primeiro gesto: navegadores bloqueiam som antes disso.
   let activated = false;
+  // Escolha da pessoa no botão de som; vale para a visita inteira (sessionStorage).
+  let muted = false;
+  try { muted = win.sessionStorage.getItem('cda-som') === 'off'; } catch {}
   const setState = state => { if (!destroyed) doc.documentElement.dataset.ambientAudio = state; };
 
   function removeGestures() {
@@ -38,6 +41,7 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
       context.addEventListener?.('statechange', () => {
         if (destroyed) return;
         if (context.state === 'running' && source) setState('playing');
+        else if (muted) setState('muted');
         else if (context.state !== 'running') {
           setState(doc.hidden ? 'paused' : 'waiting-for-interaction');
           addGestures();
@@ -61,11 +65,17 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   }
 
   async function attemptStart() {
-    if (destroyed || doc.hidden) return;
+    if (destroyed || doc.hidden || muted) return;
     try {
       if (Context) {
         const ctx = getContext();
-        if (source && ctx.state === 'running') { setState('playing'); return; }
+        if (source && ctx.state === 'running') {
+          gain.gain.cancelScheduledValues(ctx.currentTime);
+          gain.gain.setValueAtTime(gain.gain.value, ctx.currentTime);
+          gain.gain.linearRampToValueAtTime(.85, ctx.currentTime + .6);
+          setState('playing');
+          return;
+        }
         setState(ctx.state === 'running' ? 'loading' : 'waiting-for-interaction');
         // Call resume synchronously within each valid gesture. An earlier autoplay
         // resume promise may remain pending; it must never block this new attempt.
@@ -109,6 +119,8 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   function onGesture(event) {
     if (event.isTrusted === false) return;
     if (event.type === 'keydown' && (event.ctrlKey || event.metaKey || event.altKey)) return;
+    // O próprio botão de som decide; os outros gestos não religam uma trilha desligada.
+    if (muted || event.target?.closest?.('[data-som]')) return;
     activated = true;
     void attemptStart();
   }
@@ -118,11 +130,32 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
       if (context?.state === 'running') void context.suspend().catch(() => {});
       element?.pause();
       setState('paused');
-    } else if (activated) void attemptStart();
+    } else if (activated && !muted) void attemptStart();
   }
 
   function onPageShow() {
-    if (activated) void attemptStart();
+    if (activated && !muted) void attemptStart();
+  }
+
+  // Chamado pelo botão de som, dentro do clique (gesto válido para o navegador).
+  function setMuted(next) {
+    muted = next;
+    try { win.sessionStorage.setItem('cda-som', next ? 'off' : 'on'); } catch {}
+    if (next) {
+      removeGestures();
+      if (context && gain && context.state === 'running') {
+        gain.gain.cancelScheduledValues(context.currentTime);
+        gain.gain.setValueAtTime(gain.gain.value, context.currentTime);
+        gain.gain.linearRampToValueAtTime(0, context.currentTime + .35);
+        const ctx = context;
+        setTimeout(() => { if (muted && ctx.state === 'running') void ctx.suspend().catch(() => {}); }, 380);
+      }
+      element?.pause();
+      setState('muted');
+    } else {
+      activated = true;
+      void attemptStart();
+    }
   }
 
   function pauseForNavigation() {
@@ -146,10 +179,28 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
   doc.addEventListener('visibilitychange', pauseWhenHidden);
   win.addEventListener('pagehide', pauseForNavigation);
   win.addEventListener('pageshow', onPageShow);
-  setState('waiting-for-interaction');
-  return { attemptStart, destroy };
+  setState(muted ? 'muted' : 'waiting-for-interaction');
+  if (muted) removeGestures();
+  return { attemptStart, destroy, setMuted, isMuted: () => muted };
 }
 
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
-  installAmbientAudio({ window, document });
+  const audio = installAmbientAudio({ window, document });
+  // Botão de som: sempre visível, com estado anunciado para leitores de tela.
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'som';
+  button.dataset.som = '';
+  button.innerHTML = '<span class="som__barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="som__texto"></span>';
+  const label = button.querySelector('.som__texto');
+  const sync = () => {
+    const playing = document.documentElement.dataset.ambientAudio === 'playing';
+    button.setAttribute('aria-pressed', String(playing));
+    label.textContent = playing ? 'Som ligado' : 'Som desligado';
+    button.setAttribute('aria-label', playing ? 'Desligar a trilha sonora' : 'Ligar a trilha sonora');
+  };
+  button.addEventListener('click', () => audio.setMuted(document.documentElement.dataset.ambientAudio === 'playing'));
+  new MutationObserver(sync).observe(document.documentElement, { attributes: true, attributeFilter: ['data-ambient-audio'] });
+  sync();
+  document.body.append(button);
 }
