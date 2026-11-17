@@ -30,4 +30,4 @@ O arquivo `_headers` define o cache. Teste local: `npx serve .` ou qualquer serv
 
 - **`/api/measurement`**: `measurement.mjs` envia eventos para essa rota, que existe no app atual (servidor). Este repositório é estático e não tem a rota: em produção é preciso manter o backend atual ou implementar uma Function equivalente, senão a mensuração própria para.
 - **Fonte**: `assets/sans.woff2` é a OpenAI Sans, fonte proprietária sem licença para este uso. Substituir por uma fonte livre (decisão de design).
-- **Pixel Meta** (`meta-pixel.js`) dispara em qualquer domínio onde o site for publicado. Em prévias, isso gera PageView real no Pixel 2140407363486259.
+- **Pixel Meta e mensuração** só rodam em `medinamaker.com` / `www.medinamaker.com`. Prévias (`*.pages.dev`) não enviam eventos.
