@@ -1,6 +1,6 @@
 // Núcleo da página: palco, revelações, contagem, botão fixo, carrossel e carregamento sob demanda.
 // Rolagem sempre nativa. Animações só com transform/opacity (as classes vivem no CSS).
-const V = '0e2776cd';
+const V = '3aa31fbe';
 const d = document, root = d.documentElement;
 const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
 const mov = root.classList.contains('mov'), leve = root.classList.contains('leve');
@@ -28,6 +28,17 @@ if (mov) {
 } else {
   // Sem movimento: só o estado "na história" (atalho e barra), sem parallax.
   addEventListener('scroll', () => { if (!quadro) quadro = requestAnimationFrame(() => { quadro = 0; const r = historia.getBoundingClientRect(); root.classList.toggle('na-historia', r.top < innerHeight * 0.55 && r.bottom > innerHeight * 0.75); const h = clamp((innerHeight * 0.6 - r.top) / Math.max(1, r.height)); barra.style.setProperty('--h', h.toFixed(3)); }); }, { passive: true });
+}
+
+/* Luz que segue o mouse sobre o palco (desktop). */
+const luz = $('[data-luz-mouse]');
+if (luz && mov && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  let f = 0, x = 0, y = 0;
+  addEventListener('pointermove', e => {
+    x = e.clientX; y = e.clientY;
+    if (!f) f = requestAnimationFrame(() => { f = 0; luz.style.transform = `translate3d(${x}px,${y}px,0)`; luz.classList.add('on'); });
+  }, { passive: true });
+  d.addEventListener('pointerleave', () => luz.classList.remove('on'));
 }
 
 /* Revelações: linha a linha nas falas, fade nos blocos. Quem rola rápido vê tudo completo. */

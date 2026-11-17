@@ -1,4 +1,4 @@
-const TRACK_URL = '/assets/audio/codigo-cyberpunk-original-v1.mp3';
+const TRACK_URL = '/assets/audio/trilha-cinema-v1.mp3';
 const GESTURES = ['pointerdown', 'touchend', 'keydown', 'click'];
 
 /** Original, pre-attenuated audio. Browser autoplay policy remains authoritative. */
@@ -86,8 +86,9 @@ export function installAmbientAudio({ window: win, document: doc, url = TRACK_UR
           source = ctx.createBufferSource();
           source.buffer = buffer;
           source.loop = true;
-          source.loopStart = 0;
-          source.loopEnd = buffer.duration;
+          // Margem para o preenchimento do MP3: o fim da faixa já foi cruzado com o começo.
+          source.loopStart = 0.06;
+          source.loopEnd = buffer.duration - 0.06;
           source.connect(gain);
           gain.gain.setValueAtTime(0, ctx.currentTime);
           gain.gain.linearRampToValueAtTime(.85, ctx.currentTime + 1.2);

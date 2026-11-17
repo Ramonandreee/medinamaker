@@ -14,7 +14,7 @@ const reels = [
 const modulos = ["Introdução ao Método", "Construindo Audiência", "Gravação na Prática", "Estratégias e Publicação", "Vídeos de React", "Edição com IA", "Conteúdos Bônus", "Edição no CapCut", "Replicando Vídeos Virais"];
 const faq = [
   ["Como funciona o Método Código da Audiência online?", "O lançamento do método online é em <strong>12 de dezembro</strong>. O método tem aulas gravadas com acesso por <strong>um ano (12 meses)</strong> para você assistir no seu ritmo."],
-  ["Quando vou saber o valor?", "O valor do método online é revelado no <strong>grupo oficial do lançamento</strong>. Entrar no grupo é gratuito e não obriga você a comprar."],
+  ["Quando vou saber o valor?", "O valor do método online é revelado no <strong>grupo oficial do lançamento</strong>. Entrar no grupo não obriga você a comprar."],
   ["O que vou aprender sobre estratégia e edição?", "As aulas abordam estratégia de atração, organização do perfil e edição de vídeos para aplicar o método ao seu conteúdo."],
   ["Tenho acesso a um grupo de alunos?", "<strong>Sim.</strong> O método inclui acesso ao <strong>grupo de alunos do Código da Audiência</strong>, onde os alunos compartilham experiências e resultados."],
   ["Por quanto tempo terei acesso ao curso gravado?", "Você terá acesso completo a todas as aulas gravadas, atualizações e materiais complementares por <strong>1 ano (12 meses)</strong>. Isso permite que você assista no seu próprio ritmo e reveja o conteúdo quantas vezes quiser."],

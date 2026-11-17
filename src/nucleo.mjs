@@ -30,6 +30,17 @@ if (mov) {
   addEventListener('scroll', () => { if (!quadro) quadro = requestAnimationFrame(() => { quadro = 0; const r = historia.getBoundingClientRect(); root.classList.toggle('na-historia', r.top < innerHeight * 0.55 && r.bottom > innerHeight * 0.75); const h = clamp((innerHeight * 0.6 - r.top) / Math.max(1, r.height)); barra.style.setProperty('--h', h.toFixed(3)); }); }, { passive: true });
 }
 
+/* Luz que segue o mouse sobre o palco (desktop). */
+const luz = $('[data-luz-mouse]');
+if (luz && mov && matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  let f = 0, x = 0, y = 0;
+  addEventListener('pointermove', e => {
+    x = e.clientX; y = e.clientY;
+    if (!f) f = requestAnimationFrame(() => { f = 0; luz.style.transform = `translate3d(${x}px,${y}px,0)`; luz.classList.add('on'); });
+  }, { passive: true });
+  d.addEventListener('pointerleave', () => luz.classList.remove('on'));
+}
+
 /* Revelações: linha a linha nas falas, fade nos blocos. Quem rola rápido vê tudo completo. */
 $$('[data-linhas]').forEach(p => $$('.ln > span', p).forEach((s, i) => s.style.setProperty('--i', i)));
 const grupos = new Map();
