@@ -389,3 +389,14 @@ html{scroll-snap-type:y mandatory}
 .fala--apoio .apagado{color:#9fabb3}
 .ln--pausa{margin-top:.6em}
 @media (max-width:767px) and (orientation:portrait){.tela--virada .fala--apoio{font-size:clamp(17px,min(6vw,3svh),27px)}}
+/* Linhas equilibradas: cada linha da fala cabe inteira (sem quebra) e a fonte de cada tela é
+   calibrada pela sua linha mais longa, com ~13% de folga para o negrito mais largo do Safari. */
+@media (max-width:767px) and (orientation:portrait){
+.fala .ln>span{white-space:nowrap}
+[data-cena=dor] .fala,[data-cena=visualizacao] .fala,[data-cena=comparacao] .fala{font-size:clamp(20px,min(var(--fv,7vw),4.8svh),42px)}
+.tela--virada .fala--apoio{font-size:clamp(15px,min(5.2vw,2.8svh),26px)}
+}
+@media (max-width:767px) and (orientation:portrait){
+[data-cena=dor]{--fv:8vw}[data-cena=visualizacao]{--fv:8.3vw}[data-cena=comparacao]{--fv:7vw}
+.tela--virada .fala--apoio{font-size:clamp(15px,min(5.8vw,2.9svh),27px)}
+}
