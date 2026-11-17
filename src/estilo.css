@@ -412,5 +412,5 @@ html{scroll-snap-type:y mandatory}
 }
 /* Círculo em palavra toda em maiúsculas (com acento): mais folga em volta. */
 .marca--circ.marca--caixa{margin-inline:.46em}
-.marca--circ.marca--caixa svg{left:-.37em;top:-.28em;width:calc(100% + .88em);height:calc(100% + .52em)}
+.marca--circ.marca--caixa svg{left:-.42em;top:-.28em;width:calc(100% + .88em);height:calc(100% + .52em)}
 @media (max-width:767px) and (orientation:portrait){.tela--virada .fala--resposta{font-size:clamp(34px,min(12.2vw,7svh),60px)}}
