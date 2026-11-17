@@ -348,9 +348,9 @@ html{scroll-snap-type:y mandatory}
 .nw{white-space:nowrap}
 .marca--circ path{stroke-width:3.6px}
 .ln--folga{padding:.26em .36em;margin:-.26em -.36em}
-.mov [data-tela] .marca path{stroke-dasharray:1 1;stroke-dashoffset:1;transition:stroke-dashoffset .6s cubic-bezier(.65,0,.35,1) var(--m,.6s)}
-.mov [data-tela].ok .marca path{stroke-dashoffset:0}
-.mov .ja .marca path{transition:none}
+
+
+
 /* Falas no celular: cada linha do texto cabe inteira, sem quebrar em duas. */
 @media (max-width:767px) and (orientation:portrait){
 .fala{font-size:clamp(21px,min(7.1vw,4.6svh),38px);line-height:1.18}
@@ -365,5 +365,20 @@ html{scroll-snap-type:y mandatory}
 @media (max-width:767px) and (orientation:portrait){
 .tela--virada{display:flex;flex-direction:column;align-items:center}
 .fala--apoio{font-size:clamp(17px,min(5.6vw,3svh),26px)}
-[data-cena=promessa] .fala--grande{font-size:clamp(36px,min(12.6vw,7svh),62px)}
+.tela--virada .fala--grande{font-size:clamp(38px,min(13vw,7.2svh),64px)}
+.fala--media{font-size:clamp(26px,min(9vw,5.2svh),46px)}
 }
+/* Virada: a pergunta, depois a resposta grande, depois a promessa, cada uma entrando na sua vez. */
+@media (min-width:768px){.fala--media{font-size:clamp(30px,2.6vw + 16px,56px)}}
+.mov [data-tela] .fala--resposta .ln>span{transition-delay:280ms}
+.mov [data-tela] .fala--apoio .ln>span{transition-delay:calc(var(--i,0) * 50ms + 360ms)}
+.tela--virada .fala--apoio{margin-top:clamp(4px,1svh,12px)}
+@media (max-width:767px) and (orientation:portrait){
+[data-cena=visualizacao] .fala{font-size:clamp(26px,min(8.8vw,5.4svh),46px)}
+.fala--media{font-size:clamp(30px,min(10.4vw,5.8svh),52px)}
+}
+/* Traço revelado da esquerda para a direita com recorte animado (leve para o navegador), em vez de redesenhar o caminho. */
+.mov [data-tela] .marca svg{clip-path:inset(-30% 100% -30% -10%)}
+.mov [data-tela].ok .marca svg{animation:traco .55s cubic-bezier(.65,0,.35,1) var(--m,.5s) both}
+.mov .ja .marca svg{animation:none;clip-path:none}
+@keyframes traco{from{clip-path:inset(-30% 100% -30% -10%)}to{clip-path:inset(-30% -10% -30% -10%)}}
