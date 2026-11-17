@@ -2,6 +2,8 @@
   // Site estático servido como Worker com assets (funciona também no Cloudflare Pages, que ignora este arquivo).
   "name": "medinamaker",
   "compatibility_date": "2026-11-01",
+  // Exigido pelo build de prévia (npx wrangler preview) das branches que não são a main.
+  "previews": {},
   "assets": {
     "directory": "./",
     "not_found_handling": "404-page"
