@@ -1,6 +1,6 @@
 // Núcleo da página: palco, revelações, contagem, botão fixo, carrossel e carregamento sob demanda.
 // Rolagem sempre nativa. Animações só com transform/opacity (as classes vivem no CSS).
-const V = '8e10742a';
+const V = '0e2776cd';
 const d = document, root = d.documentElement;
 const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
 const mov = root.classList.contains('mov'), leve = root.classList.contains('leve');

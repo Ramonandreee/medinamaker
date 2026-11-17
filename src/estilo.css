@@ -217,3 +217,17 @@ background:#0b1217d9;border:1px solid #ffffff33;color:#fff;font-size:14px;font-w
 html:not(.mov) .palco__foto{transform:none}
 html.js:not(.mov) [data-r],html.js:not(.mov) .ln>span{transition:opacity .2s}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}.fixo,.pular-oferta,.progresso,.cta{transition-duration:.2s}}
+
+/* Celular em pé: marca no alto, botão embaixo e o palco livre no meio. */
+@media (max-width:767px) and (orientation:portrait){
+.topo{place-items:stretch;padding:max(64px,env(safe-area-inset-top) + 56px) var(--g) max(18px,env(safe-area-inset-bottom) + 12px)}
+.topo__conteudo{display:flex;flex-direction:column;align-items:center;gap:8px;min-height:100%}
+.topo__logo{width:min(66vw,30svh * 1.42)}
+.topo__sub{margin-top:8px;font-size:clamp(16px,4.4vw,19px);max-width:26ch}
+.topo__prova{padding:0;border:0;background:none;font-size:13.5px}
+.topo .cta{margin-top:auto;min-height:56px}
+.topo .micro{font-size:13px}
+.rolar{display:none}
+.palco__foto img{object-position:50% 62%}
+}
+@media (max-width:767px){.som{top:max(12px,env(safe-area-inset-top));bottom:auto;padding:0;justify-content:center;width:44px}}
