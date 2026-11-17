@@ -354,3 +354,6 @@ html{scroll-snap-type:y mandatory}
 .fala{font-size:clamp(24px,min(8.1vw,5svh),40px);line-height:1.16}
 .fala--grande{font-size:clamp(34px,min(11.6vw,7svh),60px)}
 }
+/* A promessa tem a linha mais longa ("No Código da Audiência,", ~10,8 em em negrito). Folga de ~12% para o
+   negrito sintetizado do Safari, que é mais largo, não quebrar a linha. */
+@media (max-width:767px) and (orientation:portrait){[data-cena=promessa] .fala{font-size:clamp(22px,min(7.3vw,4.6svh),38px)}}
