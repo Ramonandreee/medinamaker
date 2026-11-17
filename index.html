@@ -31,8 +31,9 @@
   <main class="experience" aria-label="Código da Audiência">
     <div class="scene" aria-hidden="true">
       <picture class="scene__photograph" id="scene-photograph">
-        <source media="(min-aspect-ratio: 4/3)" srcset="/assets/immersive/auditorium-desktop.webp">
-        <img src="/assets/immersive/auditorium-portrait.webp" width="941" height="1672" alt="" fetchpriority="high" decoding="async">
+        <source media="(min-aspect-ratio: 4/3)" srcset="/assets/immersive/auditorium-desktop-1280.webp 1280w, /assets/immersive/auditorium-desktop-1920.webp 1920w, /assets/immersive/auditorium-desktop-2560.webp 2560w" sizes="100vw">
+        <source media="(max-width: 600px)" srcset="/assets/immersive/auditorium-portrait-720.webp">
+        <img src="/assets/immersive/auditorium-portrait-720.webp" srcset="/assets/immersive/auditorium-portrait-720.webp 720w, /assets/immersive/auditorium-portrait-1080.webp 1080w, /assets/immersive/auditorium-portrait-1440.webp 1440w" sizes="100vw" width="941" height="1672" alt="" fetchpriority="high" decoding="async">
       </picture>
       <div class="scene__shade" id="scene-shade"></div>
       <div class="scene__edge"></div>
