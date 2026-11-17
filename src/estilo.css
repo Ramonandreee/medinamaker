@@ -325,3 +325,13 @@ html{scroll-snap-type:y mandatory}
 #consultoria-individual .subtitulo{font-size:18px}
 .preco{font-size:36px}
 }
+/* Safari: a barra do navegador encolhe e volta, e a altura dinâmica (dvh) muda junto. O conteúdo de cada
+   tela fica sempre dentro da menor altura (svh), acima da barra: o espaço extra vira só fundo. */
+@media (max-width:767px) and (orientation:portrait){
+.topo{padding-bottom:calc(100dvh - 100svh + max(18px,env(safe-area-inset-bottom) + 12px))}
+[data-tela]{padding-bottom:calc(100dvh - 100svh + max(24px,env(safe-area-inset-bottom) + 18px))}
+}
+@media (max-width:767px) and (orientation:portrait) and (max-height:700px){
+[data-tela]{padding-bottom:calc(100dvh - 100svh + max(16px,env(safe-area-inset-bottom) + 12px))}
+}
+.topo__data strong{color:var(--laranja2)}
