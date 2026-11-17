@@ -1,5 +1,7 @@
 (function (window, document) {
   'use strict';
+  // Só no domínio oficial: prévias (pages.dev, localhost) não enviam eventos ao Pixel de produção.
+  if (!/(^|\.)medinamaker\.com$/.test(window.location.hostname)) return;
 
   const pixelId = '2140407363486259';
   const pageViewSent = '__medinaMetaPixel2140407363486259PageView';

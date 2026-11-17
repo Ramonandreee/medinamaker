@@ -23,4 +23,5 @@ export function startMeasurement(win,doc){
  win.addEventListener('pagehide',()=>{flush();});
  return ()=>win.clearInterval(interval);
 }
-if(typeof window!=='undefined')startMeasurement(window,document);
+// Só no domínio oficial: prévias não enviam eventos para /api/measurement.
+if(typeof window!=='undefined'&&/(^|\.)medinamaker\.com$/.test(window.location.hostname))startMeasurement(window,document);
