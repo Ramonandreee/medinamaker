@@ -534,3 +534,5 @@ background-size:20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1px 20px,20px 1px,1
 .mov [data-tela].ok.fora > *{opacity:0;transform:translate3d(0,-4vh,0)}
 .mov [data-tela].ok.fora-baixo > *{opacity:0;transform:translate3d(0,4vh,0)}
 
+/* Enquadramento (cantos de visor) retirado a pedido. */
+.palco__visor{display:none}
