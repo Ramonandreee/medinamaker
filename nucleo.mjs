@@ -1,6 +1,6 @@
 // Núcleo da página: palco, entrada das telas, contagem, ranking dos alunos e carregamento sob demanda.
 // Rolagem sempre nativa. Animações só com transform/opacity (as classes vivem no CSS).
-const V = '15a0e28b';
+const V = 'ce3ddd23';
 const d = document, root = d.documentElement;
 const $ = (s, el = d) => el.querySelector(s), $$ = (s, el = d) => [...el.querySelectorAll(s)];
 const mov = root.classList.contains('mov'), leve = root.classList.contains('leve');
@@ -90,7 +90,26 @@ if (ranking) {
   }
 }
 
-/* Medição e som: fora do caminho crítico. */
+/* Botão do grupo: uma onda de alcance sai do ponto do toque e a seta segue em frente; o convite abre
+   logo em seguida (~380 ms, ainda dentro do gesto, então o navegador não bloqueia a nova aba).
+   Sem animação para quem pediu menos movimento. */
+d.addEventListener('click', e => {
+  const a = e.target.closest?.('a[data-grupo]');
+  if (!a || !mov || e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  e.preventDefault();
+  if (a.classList.contains('indo')) return;
+  const r = a.getBoundingClientRect();
+  const x = e.clientX ? e.clientX - r.left : r.width / 2, y = e.clientY ? e.clientY - r.top : r.height / 2;
+  a.style.setProperty('--x', `${x}px`); a.style.setProperty('--y', `${y}px`);
+  a.classList.add('indo');
+  setTimeout(() => {
+    const w = open(a.href, '_blank');
+    if (w) w.opener = null; else location.href = a.href;
+    setTimeout(() => a.classList.remove('indo'), 200);
+  }, 380);
+});
+
+/* Medição: fora do caminho crítico. */
 const ocioso = fn => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 2500 }) : setTimeout(fn, 1200));
-const depois = () => { ocioso(() => import(`/medicao.mjs?v=${V}`).catch(() => {})); ocioso(() => import(`/ambient-audio.mjs?v=${V}`).catch(() => {})); };
+const depois = () => ocioso(() => import(`/medicao.mjs?v=${V}`).catch(() => {}));
 if (d.readyState === 'complete') depois(); else addEventListener('load', depois, { once: true });
